@@ -80,7 +80,11 @@ function initNewsletterForms() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderSaleCards();
-  renderNewArrivals();
+  // Newsletter forms don't depend on product data — bind immediately.
   initNewsletterForms();
+  // Product grids must wait for the product DB to load.
+  LUXE_PRODUCTS_READY.then(() => {
+    renderSaleCards();
+    renderNewArrivals();
+  });
 });

@@ -233,4 +233,6 @@ function initProductPage() {
   renderRelated(product);
 }
 
-document.addEventListener('DOMContentLoaded', initProductPage);
+document.addEventListener('DOMContentLoaded', () => {
+  LUXE_PRODUCTS_READY.then(initProductPage);
+});

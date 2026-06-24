@@ -47,4 +47,6 @@ function initShopFilters() {
   renderShopGrid(active);
 }
 
-document.addEventListener('DOMContentLoaded', initShopFilters);
+document.addEventListener('DOMContentLoaded', () => {
+  LUXE_PRODUCTS_READY.then(initShopFilters);
+});

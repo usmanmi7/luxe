@@ -200,4 +200,6 @@ function luxeInitCheckoutFlow() {
   luxeRenderCartView();
 }
 
-document.addEventListener('DOMContentLoaded', luxeInitCheckoutFlow);
+document.addEventListener('DOMContentLoaded', () => {
+  LUXE_PRODUCTS_READY.then(luxeInitCheckoutFlow);
+});
