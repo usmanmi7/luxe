@@ -1,0 +1,211 @@
+// ==========================================================================
+// LUXE — Prisma schema
+// SQLite for local dev; swap `provider = "sqlite"` → `"postgresql"` for
+// Vercel Postgres in production (no other code changes needed).
+// ==========================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ----- Auth -------------------------------------------------------------
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  passwordHash  String?
+  role          String    @default("USER") // USER | ADMIN
+  image         String?
+  banned        Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts      Account[]
+  sessions      Session[]
+  orders        Order[]
+  addresses     Address[]
+  reviews       Review[]
+  cart          CartItem[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ----- Catalog ----------------------------------------------------------
+model Product {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  name          String
+  category      String   // Skincare | Makeup
+  price         Float
+  originalPrice Float?
+  img           String
+  gallery       String   // JSON array of image URLs
+  desc          String
+  longDesc      String
+  ingredients   String
+  tag           String?  // Sale | New | Bestseller | null
+  shades        String?  // JSON array or null
+  sizes         String?  // JSON array or null
+  rating        Float    @default(0)
+  reviewCount   Int      @default(0)
+  stock         Int      @default(0)
+  active        Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  reviews       Review[]
+  orderItems    OrderItem[]
+  cartItems     CartItem[]
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  productId String
+  userId    String?
+  name      String
+  rating    Int
+  text      String
+  createdAt DateTime @default(now())
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user    User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+// ----- Cart (server-side, persisted per user) ---------------------------
+model CartItem {
+  id        String @id @default(cuid())
+  userId    String
+  productId String
+  qty       Int    @default(1)
+  variant   String? // shade|size or null
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId, variant])
+}
+
+// ----- Orders -----------------------------------------------------------
+model Order {
+  id            String   @id @default(cuid())
+  orderNumber   String   @unique
+  userId        String?
+  email         String
+  status        String   @default("pending")
+  // pending | paid | shipped | delivered | cancelled | refunded | pending_cod | pending_bank
+
+  subtotal      Float
+  shipping      Float    @default(0)
+  tax           Float    @default(0)
+  total         Float
+
+  paymentMethod String?  // card | cod | bank
+  paymentRef    String?  // PayHere charge ID or bank ref
+
+  // Snapshot of shipping address (denormalized so old orders stay intact
+  // even if the user later edits their Address book)
+  shipFirstName String
+  shipLastName  String
+  shipAddress   String
+  shipCity      String
+  shipPostal    String
+  shipCountry   String
+  shipPhone     String?
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user      User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  items     OrderItem[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id        String @id @default(cuid())
+  orderId   String
+  productId String
+  name      String   // snapshot at time of order
+  price     Float    // snapshot
+  img       String   // snapshot
+  qty       Int
+  variant   String?
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+}
+
+// ----- Address book -----------------------------------------------------
+model Address {
+  id        String   @id @default(cuid())
+  userId    String
+  label     String   @default("Home") // Home | Work | Other
+  firstName String
+  lastName  String
+  address   String
+  city      String
+  postal    String
+  country   String
+  phone     String?
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// ----- Coupons (phase 2+) ----------------------------------------------
+model Coupon {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  type      String   // percent | fixed
+  value     Float
+  minOrder  Float    @default(0)
+  active    Boolean  @default(true)
+  expiresAt DateTime?
+  createdAt DateTime @default(now())
+}
