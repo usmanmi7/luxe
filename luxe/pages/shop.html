@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop All — LUXE</title>
+<meta name="description" content="Shop the full LUXE catalog: clean, high-performance skincare and makeup.">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/inner.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="../index.html" class="logo">LUXE<span class="dot">.</span></a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="shop.html" aria-current="page">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a class="icon-btn" href="cart.html" aria-label="View cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l2.4 12.4a2 2 0 0 0 2 1.6h7.2a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
+        <span class="cart-count" data-cart-count>0</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Full catalog</span>
+      <h1>Shop everything.</h1>
+      <p class="page-hero-sub">Skincare and makeup, formulated first. Filter by category below.</p>
+    </div>
+  </section>
+
+  <section class="section-pad shop-section">
+    <div class="wrap">
+      <div class="shop-toolbar">
+        <div class="filter-pills" id="filter-pills">
+          <button type="button" class="pill active" data-filter="All">All</button>
+          <button type="button" class="pill" data-filter="Skincare">Skincare</button>
+          <button type="button" class="pill" data-filter="Makeup">Makeup</button>
+          <button type="button" class="pill" data-filter="Sale">Sale</button>
+        </div>
+        <div class="result-count mono" id="result-count">8 products</div>
+      </div>
+
+      <div class="product-grid" id="shop-grid"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">LUXE<span class="dot">.</span></div>
+        <p>Clean, high-performance beauty in bold color. Formulated for real skin, made to be seen.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="shop.html?cat=Skincare">Skincare</a></li>
+          <li><a href="shop.html?cat=Makeup">Makeup</a></li>
+          <li><a href="shop.html">All products</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="cart.html">Cart</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Stay in the loop</h4>
+        <form class="footer-form" id="footer-newsletter-form">
+          <input type="email" required placeholder="Your email" aria-label="Email address">
+          <button type="submit">Join →</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 LUXE Cosmetics. All rights reserved.</span>
+      <div class="legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Shipping</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/cart.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/shop.js"></script>
+</body>
+</html>

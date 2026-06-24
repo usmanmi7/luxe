@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product — LUXE</title>
+<meta name="description" content="Shop LUXE beauty products — clean formulas, bold color.">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/inner.css">
+<link rel="stylesheet" href="../css/product.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="../index.html" class="logo">LUXE<span class="dot">.</span></a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a class="icon-btn" href="cart.html" aria-label="View cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l2.4 12.4a2 2 0 0 0 2 1.6h7.2a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
+        <span class="cart-count" data-cart-count style="display:none">0</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- Breadcrumb -->
+  <div class="wrap breadcrumb-row">
+    <nav class="breadcrumb" aria-label="Breadcrumb" id="breadcrumb">
+      <a href="../index.html">Home</a> <span>/</span>
+      <a href="shop.html">Shop</a> <span>/</span>
+      <span id="breadcrumb-name">Product</span>
+    </nav>
+  </div>
+
+  <!-- Product Detail -->
+  <section class="section-pad product-detail-section">
+    <div class="wrap product-detail-grid">
+
+      <!-- Gallery -->
+      <div class="product-gallery">
+        <div class="gallery-main">
+          <img id="gallery-main-img" src="" alt="Product main image">
+          <div class="gallery-zoom-hint mono">Hover to zoom</div>
+        </div>
+        <div class="gallery-thumbs" id="gallery-thumbs"></div>
+      </div>
+
+      <!-- Info -->
+      <div class="product-info-panel">
+        <div class="product-meta-top">
+          <span class="product-cat mono" id="pd-category"></span>
+          <span class="product-badge" id="pd-badge" style="display:none"></span>
+        </div>
+        <h1 class="pd-name" id="pd-name"></h1>
+
+        <div class="pd-rating" id="pd-rating"></div>
+
+        <div class="pd-price-row">
+          <span class="pd-price" id="pd-price"></span>
+          <span class="pd-original-price" id="pd-original-price" style="display:none"></span>
+          <span class="pd-savings" id="pd-savings" style="display:none"></span>
+        </div>
+
+        <p class="pd-desc" id="pd-desc"></p>
+
+        <!-- Shade Picker -->
+        <div class="pd-picker" id="shade-picker" style="display:none">
+          <div class="picker-label"><span class="mono">Shade:</span> <strong id="selected-shade-label"></strong></div>
+          <div class="picker-options" id="shade-options"></div>
+        </div>
+
+        <!-- Size Picker -->
+        <div class="pd-picker" id="size-picker" style="display:none">
+          <div class="picker-label"><span class="mono">Size:</span> <strong id="selected-size-label"></strong></div>
+          <div class="picker-options picker-sizes" id="size-options"></div>
+        </div>
+
+        <!-- Qty + Add to Cart -->
+        <div class="pd-atc-row">
+          <div class="pd-qty-control">
+            <button type="button" id="pd-qty-minus" aria-label="Decrease">−</button>
+            <input type="number" id="pd-qty" value="1" min="1" max="99" aria-label="Quantity">
+            <button type="button" id="pd-qty-plus" aria-label="Increase">+</button>
+          </div>
+          <button type="button" class="btn btn-atc" id="pd-add-to-cart">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l2.4 12.4a2 2 0 0 0 2 1.6h7.2a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
+            Add to bag
+          </button>
+        </div>
+        <a href="cart.html" class="btn btn-view-cart" id="pd-view-cart" style="display:none">View bag →</a>
+
+        <!-- Perks row -->
+        <div class="pd-perks">
+          <span>🚚 Free shipping $60+</span>
+          <span>↩ 30-day returns</span>
+          <span>🧪 Dermatologist tested</span>
+        </div>
+
+        <!-- Tabs -->
+        <div class="pd-tabs">
+          <div class="pd-tab-nav">
+            <button class="pd-tab-btn active" data-tab="details">Details</button>
+            <button class="pd-tab-btn" data-tab="ingredients">Ingredients</button>
+            <button class="pd-tab-btn" data-tab="reviews">Reviews</button>
+          </div>
+          <div class="pd-tab-panel active" id="tab-details">
+            <p id="pd-long-desc"></p>
+          </div>
+          <div class="pd-tab-panel" id="tab-ingredients">
+            <p id="pd-ingredients"></p>
+          </div>
+          <div class="pd-tab-panel" id="tab-reviews">
+            <div id="pd-reviews-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Products -->
+  <section class="section-pad related-section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>You might also like</h2>
+        <a href="shop.html" class="btn btn-outline-dark btn-sm">View all</a>
+      </div>
+      <div class="product-grid product-grid-4" id="related-grid"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">LUXE<span class="dot">.</span></div>
+        <p>Clean, high-performance beauty in bold color.</p>
+      </div>
+      <div class="footer-col"><h4>Shop</h4><ul>
+        <li><a href="shop.html?cat=Skincare">Skincare</a></li>
+        <li><a href="shop.html?cat=Makeup">Makeup</a></li>
+        <li><a href="shop.html">All products</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Stay in the loop</h4>
+        <form class="footer-form" id="footer-newsletter-form">
+          <input type="email" required placeholder="Your email">
+          <button type="submit">Join →</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 LUXE Cosmetics.</span>
+      <div class="legal"><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/cart.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/product.js"></script>
+</body>
+</html>

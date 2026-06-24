@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Bag — LUXE</title>
+<meta name="description" content="Review your bag and check out at LUXE.">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/inner.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="../index.html" class="logo">LUXE<span class="dot">.</span></a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a class="icon-btn" href="cart.html" aria-label="View cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3h2l2.4 12.4a2 2 0 0 0 2 1.6h7.2a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
+        <span class="cart-count" data-cart-count>0</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow" id="step-eyebrow">Step 1 of 2</span>
+      <h1 id="page-title">Your bag</h1>
+    </div>
+  </section>
+
+  <section class="section-pad cart-section">
+    <div class="wrap">
+
+      <!-- ===== CART VIEW ===== -->
+      <div id="cart-view">
+        <div class="cart-layout">
+          <div class="cart-items" id="cart-items">
+            <!-- rendered by JS -->
+          </div>
+
+          <aside class="cart-summary">
+            <h2>Order summary</h2>
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="sum-subtotal" class="mono">$0.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Shipping</span>
+              <span id="sum-shipping" class="mono">Free</span>
+            </div>
+            <div class="summary-row">
+              <span>Estimated tax</span>
+              <span id="sum-tax" class="mono">$0.00</span>
+            </div>
+            <hr class="divider">
+            <div class="summary-row summary-total">
+              <span>Total</span>
+              <span id="sum-total" class="mono">$0.00</span>
+            </div>
+            <button type="button" class="btn btn-primary btn-block" id="checkout-btn"><span>Proceed to checkout</span></button>
+            <a href="shop.html" class="btn-ghost mono" style="display:block; text-align:center; margin-top:18px;">Continue shopping</a>
+          </aside>
+        </div>
+
+        <div class="empty-cart" id="empty-cart" hidden>
+          <h2>Your bag is empty</h2>
+          <p>Looks like you haven't added anything yet. Let's fix that.</p>
+          <a href="shop.html" class="btn btn-primary"><span>Browse products</span></a>
+        </div>
+      </div>
+
+      <!-- ===== CHECKOUT VIEW ===== -->
+      <div id="checkout-view" hidden>
+        <div class="cart-layout">
+          <form class="checkout-form" id="checkout-form" novalidate>
+            <fieldset>
+              <legend>Contact</legend>
+              <label class="field">
+                <span>Email</span>
+                <input type="email" name="email" required placeholder="you@email.com">
+              </label>
+            </fieldset>
+
+            <fieldset>
+              <legend>Shipping address</legend>
+              <div class="field-row">
+                <label class="field">
+                  <span>First name</span>
+                  <input type="text" name="firstName" required>
+                </label>
+                <label class="field">
+                  <span>Last name</span>
+                  <input type="text" name="lastName" required>
+                </label>
+              </div>
+              <label class="field">
+                <span>Address</span>
+                <input type="text" name="address" required placeholder="Street and house number">
+              </label>
+              <div class="field-row">
+                <label class="field">
+                  <span>City</span>
+                  <input type="text" name="city" required>
+                </label>
+                <label class="field">
+                  <span>Postal code</span>
+                  <input type="text" name="postal" required>
+                </label>
+              </div>
+              <label class="field">
+                <span>Country</span>
+                <input type="text" name="country" required placeholder="Sri Lanka">
+              </label>
+            </fieldset>
+
+            <fieldset>
+              <legend>Payment</legend>
+              <p class="payment-note mono">This is a demo checkout — no real payment is processed.</p>
+              <label class="field">
+                <span>Card number</span>
+                <input type="text" name="card" placeholder="4242 4242 4242 4242" inputmode="numeric" maxlength="19">
+              </label>
+              <div class="field-row">
+                <label class="field">
+                  <span>Expiry</span>
+                  <input type="text" name="expiry" placeholder="MM/YY">
+                </label>
+                <label class="field">
+                  <span>CVC</span>
+                  <input type="text" name="cvc" placeholder="123" inputmode="numeric" maxlength="4">
+                </label>
+              </div>
+            </fieldset>
+
+            <button type="button" class="btn-ghost mono" id="back-to-cart">← Back to bag</button>
+            <button type="submit" class="btn btn-primary btn-block"><span id="place-order-label">Place order — <span id="checkout-total">$0.00</span></span></button>
+          </form>
+
+          <aside class="cart-summary">
+            <h2>Order summary</h2>
+            <div id="checkout-items"></div>
+            <hr class="divider">
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="co-subtotal" class="mono">$0.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Shipping</span>
+              <span id="co-shipping" class="mono">Free</span>
+            </div>
+            <div class="summary-row">
+              <span>Estimated tax</span>
+              <span id="co-tax" class="mono">$0.00</span>
+            </div>
+            <hr class="divider">
+            <div class="summary-row summary-total">
+              <span>Total</span>
+              <span id="co-total" class="mono">$0.00</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <!-- ===== CONFIRMATION VIEW ===== -->
+      <div id="confirmation-view" hidden class="confirmation">
+        <span class="confirmation-icon" aria-hidden="true">✓</span>
+        <h2>Order placed</h2>
+        <p>Thanks for shopping LUXE. A confirmation has been sent to <strong id="confirm-email"></strong>.</p>
+        <p class="mono confirm-id" id="confirm-order-id"></p>
+        <a href="../index.html" class="btn btn-primary"><span>Back to home</span></a>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">LUXE<span class="dot">.</span></div>
+        <p>Clean, high-performance beauty in bold color. Formulated for real skin, made to be seen.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="shop.html?cat=Skincare">Skincare</a></li>
+          <li><a href="shop.html?cat=Makeup">Makeup</a></li>
+          <li><a href="shop.html">All products</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="cart.html">Cart</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Stay in the loop</h4>
+        <form class="footer-form" id="footer-newsletter-form">
+          <input type="email" required placeholder="Your email" aria-label="Email address">
+          <button type="submit">Join →</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 LUXE Cosmetics. All rights reserved.</span>
+      <div class="legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Shipping</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/cart.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/checkout.js"></script>
+</body>
+</html>
