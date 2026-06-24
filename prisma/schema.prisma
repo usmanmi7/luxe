@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -78,13 +78,13 @@ model Product {
   price         Float
   originalPrice Float?
   img           String
-  gallery       String   // JSON array of image URLs
+  gallery       String[] // array of image URLs (Postgres native array)
   desc          String
   longDesc      String
   ingredients   String
   tag           String?  // Sale | New | Bestseller | null
-  shades        String?  // JSON array or null
-  sizes         String?  // JSON array or null
+  shades        String[] // empty array if no shades
+  sizes         String[] // empty array if no sizes
   rating        Float    @default(0)
   reviewCount   Int      @default(0)
   stock         Int      @default(0)
