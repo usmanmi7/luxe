@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { auth } from "@/lib/auth/auth";
+import { sendOrderConfirmationEmail } from "@/lib/luxe/email";
 
 export const dynamic = "force-dynamic";
 
@@ -41,6 +43,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
+    // Attach to logged-in user if session exists
+    const session = await auth();
+    const userId = session?.user?.id || null;
+
     const orderNumber = generateOrderNumber();
     const codFee = body.codFee || 0;
     const status =
@@ -52,6 +58,7 @@ export async function POST(req: Request) {
       data: {
         orderNumber,
         email: body.email,
+        userId,
         status,
         subtotal: body.subtotal,
         shipping: body.shipping + codFee, // fold COD fee into shipping line
@@ -86,6 +93,28 @@ export async function POST(req: Request) {
         data: { stock: { decrement: item.qty } },
       });
     }
+
+    // Send order confirmation email (fire-and-forget; don't block the response)
+    sendOrderConfirmationEmail({
+      orderNumber: order.orderNumber,
+      email: order.email,
+      customerName: `${order.shipFirstName} ${order.shipLastName}`,
+      total: order.total,
+      items: order.items.map((i) => ({
+        name: i.name, qty: i.qty, price: i.price, variant: i.variant,
+      })),
+      shippingAddress: {
+        firstName: order.shipFirstName,
+        lastName: order.shipLastName,
+        address: order.shipAddress,
+        city: order.shipCity,
+        postal: order.shipPostal,
+        country: order.shipCountry,
+        phone: order.shipPhone,
+      },
+      paymentMethod: order.paymentMethod || "card",
+      status: order.status,
+    }).catch((err) => console.error("[email] Background send failed:", err));
 
     return NextResponse.json({ order }, { status: 201 });
   } catch (err) {

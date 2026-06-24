@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
+import { SessionProvider } from "next-auth/react";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -65,10 +66,12 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${spaceMono.variable} ${fraunces.variable} antialiased bg-background text-foreground min-h-screen flex flex-col`}
       >
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
-        <Toaster />
+        <SessionProvider>
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+          <Toaster />
+        </SessionProvider>
       </body>
     </html>
   );
