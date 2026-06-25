@@ -122,7 +122,7 @@ export default async function HomePage() {
               <span className="luxe-eyebrow mb-3 block">Full collection</span>
               <h2 className="font-display text-4xl md:text-5xl font-medium">Shop all products</h2>
             </div>
-            <Link href="/shop" className="luxe-btn-outline luxe-btn-ghost">Browse shop</Link>
+            <Link href="/shop" className="luxe-btn-outline">Browse shop</Link>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
             {newArrivals.map((p) => (

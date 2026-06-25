@@ -50,7 +50,7 @@ export function ProductCard({ product, prefix = "" }: { product: Product; prefix
           <button
             type="button"
             onClick={handleQuickAdd}
-            className="w-full luxe-btn-primary text-xs py-3"
+            className="w-full luxe-btn-lime text-xs py-3"
           >
             {adding ? "Added ✓" : "Quick add"}
           </button>
