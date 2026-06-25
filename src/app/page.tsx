@@ -133,12 +133,13 @@ export default async function HomePage() {
       </section>
 
       {/* ===== SALE STRIP ===== */}
-      <section className="bg-[#0a0a0a] text-[#fafaf8] py-20">
-        <div className="luxe-wrap grid md:grid-cols-[1fr_1.5fr] gap-12 items-center">
+      <section className="relative overflow-hidden py-20">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#f3f1ea] via-[#fafaf8] to-[#D1FE17]/10" />
+        <div className="luxe-wrap relative grid md:grid-cols-[1fr_1.5fr] gap-12 items-center">
           <div>
             <span className="luxe-tag luxe-tag-sale mb-4 inline-block">Sale</span>
             <h2 className="font-display text-4xl md:text-5xl font-medium mt-4">Up to 20% off this week</h2>
-            <p className="mt-4 text-white/70 max-w-[40ch]">
+            <p className="mt-4 text-[#2b2b28] max-w-[40ch]">
               Stocked up on our top formulas — now at our lowest prices of the year. Ends Sunday.
             </p>
             <Link href="/shop?cat=Sale" className="luxe-btn-lime mt-6 inline-flex">Shop the sale</Link>
