@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { ProductCard, type Product } from "@/components/site/product-card";
+import { HeroShowcase } from "@/components/site/hero-showcase";
 
 async function getProducts() {
   const products = await db.product.findMany({
@@ -57,35 +58,13 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="relative flex items-center">
-            {products[0] && (
-              <Link
-                href={`/product/${products[5]?.slug || products[0].slug}`}
-                className="flex flex-col group bg-white rounded-md overflow-hidden shadow-sm border border-[#e4e1d6] w-full h-[60vh] md:h-[680px]"
-              >
-                <div className="overflow-hidden bg-[#f3f1ea] flex-1 min-h-0">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={products[5]?.img || products[0].img}
-                    alt={products[5]?.name || products[0].name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-5 flex-shrink-0">
-                  <div className="flex items-center justify-between luxe-mono text-[11px] mb-2">
-                    <span className="luxe-tag luxe-tag-bestseller">Bestseller</span>
-                    <span>★★★★★ 4.9</span>
-                  </div>
-                  <div className="font-display text-xl font-medium">
-                    {products[5]?.name || products[0].name}
-                  </div>
-                  <div className="mt-2 flex items-center justify-between">
-                    <span className="font-mono">${(products[5]?.price || products[0].price).toFixed(2)}</span>
-                    <span className="luxe-mono text-[11px] group-hover:text-[#b9e30f] transition-colors">Shop now →</span>
-                  </div>
-                </div>
-              </Link>
-            )}
+          <div className="relative flex items-center pb-8">
+            <HeroShowcase
+              products={products.map((p) => ({
+                id: p.id, slug: p.slug, name: p.name,
+                price: p.price, img: p.img, tag: p.tag,
+              }))}
+            />
           </div>
         </div>
       </section>
