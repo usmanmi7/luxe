@@ -58,7 +58,7 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="relative flex items-center pb-8">
+          <div className="relative flex items-center">
             <HeroShowcase
               products={products.map((p) => ({
                 id: p.id, slug: p.slug, name: p.name,
