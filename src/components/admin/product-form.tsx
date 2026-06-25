@@ -9,13 +9,14 @@ export type ProductFormData = {
   name: string; category: string; price: string; originalPrice: string;
   img: string; gallery: string; desc: string; longDesc: string;
   ingredients: string; tag: string; shades: string; sizes: string;
-  stock: string; active: boolean;
+  stock: string; active: boolean; notifySubscribers: boolean;
 };
 
 const EMPTY: ProductFormData = {
   name: "", category: "Skincare", price: "", originalPrice: "",
   img: "", gallery: "", desc: "", longDesc: "", ingredients: "",
   tag: "", shades: "", sizes: "", stock: "100", active: true,
+  notifySubscribers: false,
 };
 
 function slugify(name: string): string {
@@ -54,6 +55,7 @@ export function ProductForm({ initial, productId }: { initial?: ProductFormData;
       sizes: form.sizes.split(",").map((s) => s.trim()).filter(Boolean),
       stock: parseInt(form.stock) || 0,
       active: form.active,
+      notifySubscribers: form.notifySubscribers,
     };
 
     if (!payload.name || !payload.img || payload.price <= 0) {
@@ -142,6 +144,27 @@ export function ProductForm({ initial, productId }: { initial?: ProductFormData;
           </label>
         </Field>
       </div>
+
+      {/* Newsletter notification — only on new products, not edit */}
+      {!isEdit && (
+        <div className="bg-[#D1FE17]/10 border border-[#D1FE17]/30 rounded-md p-4">
+          <label className="flex items-start gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={form.notifySubscribers}
+              onChange={(e) => update("notifySubscribers", e.target.checked)}
+              className="w-4 h-4 mt-0.5"
+            />
+            <div>
+              <div className="font-display text-sm font-medium">✉️ Notify all subscribers about this new product</div>
+              <p className="text-xs text-[#2b2b28] mt-1">
+                When checked, every confirmed subscriber will receive a branded "New product launched" email with the product image, name, price, and a "Shop now" button.
+                Each email includes a one-click unsubscribe link (CAN-SPAM compliant).
+              </p>
+            </div>
+          </label>
+        </div>
+      )}
 
       <div className="grid md:grid-cols-2 gap-5">
         <Field label="Shades (comma-separated)" hint="e.g. Acid, Ember, Slate">

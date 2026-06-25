@@ -10,6 +10,7 @@ const NAV = [
   { href: "/admin/products", label: "Products", icon: "🧴" },
   { href: "/admin/orders", label: "Orders", icon: "📦" },
   { href: "/admin/users", label: "Users", icon: "👥" },
+  { href: "/admin/subscribers", label: "Subscribers", icon: "✉️" },
 ];
 
 export function AdminSidebar({ userEmail, userName }: { userEmail: string; userName: string }) {

@@ -209,3 +209,22 @@ model Coupon {
   expiresAt DateTime?
   createdAt DateTime @default(now())
 }
+
+// ----- Newsletter subscribers ------------------------------------------
+// Double opt-in: pending → confirmed (after clicking email link)
+// unsubscribeToken is used for one-click unsubscribe links (CAN-SPAM/GDPR)
+model Subscriber {
+  id                String    @id @default(cuid())
+  email             String    @unique
+  status            String    @default("pending") // pending | confirmed | unsubscribed
+  confirmToken      String    @unique @default(cuid())
+  unsubscribeToken  String    @unique @default(cuid())
+  source            String    @default("footer") // footer | admin | import
+  confirmedAt       DateTime?
+  unsubscribedAt    DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([status])
+  @@index([email])
+}
