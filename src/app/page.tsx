@@ -39,7 +39,7 @@ export default async function HomePage() {
           <div>
             <div className="luxe-eyebrow mb-5">New season drop</div>
             <h1 className="font-display text-5xl md:text-7xl font-medium leading-[1.05] tracking-tight">
-              Skin that <em className="italic text-[#0a0a0a]/70">speaks</em>
+              Skin that <em className="italic text-[#b9e30f]">speaks</em>
               <br />
               for itself.
             </h1>
