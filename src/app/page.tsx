@@ -2,6 +2,7 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { ProductCard, type Product } from "@/components/site/product-card";
 import { HeroShowcase } from "@/components/site/hero-showcase";
+import { NewsletterForm } from "@/components/site/newsletter-form";
 
 async function getProducts() {
   const products = await db.product.findMany({
@@ -171,18 +172,7 @@ export default async function HomePage() {
                 <h3 className="font-display text-3xl font-medium">Get 15% off your first order</h3>
                 <p className="mt-2 text-[#2b2b28]">New drops, formula deep-dives, restocks. No spam.</p>
               </div>
-              <form className="flex gap-2">
-                <input
-                  type="email"
-                  required
-                  placeholder="you@email.com"
-                  aria-label="Email address"
-                  className="flex-1 bg-white border border-[#e4e1d6] rounded-md px-4 py-3 outline-none focus:border-[#0a0a0a]"
-                />
-                <button type="submit" className="luxe-btn-primary">
-                  <span>Subscribe</span>
-                </button>
-              </form>
+              <NewsletterForm variant="section" />
             </div>
           </div>
         </div>
