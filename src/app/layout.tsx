@@ -45,6 +45,10 @@ export const metadata: Metadata = {
     "clean beauty",
   ],
   authors: [{ name: "LUXE Cosmetics" }],
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
   openGraph: {
     title: "LUXE — Beauty, Unfiltered",
     description:
