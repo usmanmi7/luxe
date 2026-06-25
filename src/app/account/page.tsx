@@ -93,6 +93,20 @@ export default async function AccountPage() {
         </div>
       </div>
 
+      {/* Quick links */}
+      <div className="grid md:grid-cols-2 gap-4 mb-12">
+        <Link href="/account/profile" className="border border-[#e4e1d6] rounded-md p-5 hover:border-[#0a0a0a] transition-colors block">
+          <div className="luxe-mono text-[11px] text-[#2b2b28] mb-1">SETTINGS</div>
+          <div className="font-display text-xl font-medium">Profile & password →</div>
+          <p className="text-sm text-[#2b2b28] mt-1">Update your name, change your password.</p>
+        </Link>
+        <Link href="/account/addresses" className="border border-[#e4e1d6] rounded-md p-5 hover:border-[#0a0a0a] transition-colors block">
+          <div className="luxe-mono text-[11px] text-[#2b2b28] mb-1">SETTINGS</div>
+          <div className="font-display text-xl font-medium">Saved addresses →</div>
+          <p className="text-sm text-[#2b2b28] mt-1">Manage shipping addresses for faster checkout.</p>
+        </Link>
+      </div>
+
       {/* Order history */}
       <h2 className="font-display text-3xl font-medium mb-6">Order history</h2>
       {orders.length === 0 ? (

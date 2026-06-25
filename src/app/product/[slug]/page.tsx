@@ -19,6 +19,44 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       title: `${product.name} — LUXE`,
       description: product.desc,
       images: [product.img],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.name} — LUXE`,
+      description: product.desc,
+      images: [product.img],
+    },
+    alternates: { canonical: `/product/${product.slug}` },
+  };
+}
+
+function productJsonLd(product: {
+  name: string; desc: string; img: string; price: number;
+  category: string; rating: number; reviewCount: number; slug: string;
+}) {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://luxe-ruby-delta.vercel.app";
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.desc,
+    image: [product.img],
+    sku: product.slug,
+    brand: { "@type": "Brand", name: "LUXE" },
+    category: product.category,
+    offers: {
+      "@type": "Offer",
+      url: `${baseUrl}/product/${product.slug}`,
+      priceCurrency: "USD",
+      price: product.price,
+      availability: "https://schema.org/InStock",
+      itemCondition: "https://schema.org/NewCondition",
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: product.rating,
+      reviewCount: product.reviewCount,
     },
   };
 }
@@ -53,6 +91,19 @@ export default async function ProductPage({ params }: { params: Params }) {
 
   return (
     <>
+      {/* JSON-LD structured data for Google Shopping */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productJsonLd({
+            name: product.name, desc: product.desc, img: product.img,
+            price: product.price, category: product.category,
+            rating: product.rating, reviewCount: product.reviewCount,
+            slug: product.slug,
+          })),
+        }}
+      />
+
       {/* Breadcrumb */}
       <div className="luxe-wrap pt-6 pb-2">
         <nav className="luxe-mono text-[11px] text-[#2b2b28]" aria-label="Breadcrumb">

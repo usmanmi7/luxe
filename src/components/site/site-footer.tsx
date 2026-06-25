@@ -48,6 +48,16 @@ export function SiteFooter() {
           </div>
 
           <div>
+            <h4 className="luxe-mono text-[#D1FE17] mb-[18px]">Help</h4>
+            <ul className="flex flex-col gap-3">
+              <li><Link href="/shipping" className="text-white/70 hover:text-[#D1FE17] text-sm transition-colors">Shipping</Link></li>
+              <li><Link href="/returns" className="text-white/70 hover:text-[#D1FE17] text-sm transition-colors">Returns</Link></li>
+              <li><Link href="/privacy" className="text-white/70 hover:text-[#D1FE17] text-sm transition-colors">Privacy</Link></li>
+              <li><Link href="/terms" className="text-white/70 hover:text-[#D1FE17] text-sm transition-colors">Terms</Link></li>
+            </ul>
+          </div>
+
+          <div>
             <h4 className="luxe-mono text-[#D1FE17] mb-[18px]">Stay in the loop</h4>
             <form onSubmit={subscribe} className="flex items-center gap-0 border-b-[1.5px] border-white/30 pb-[10px] mt-2">
               <input
