@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: { default: "Admin — LUXE", template: "%s — LUXE Admin" } };
+export const metadata: Metadata = { title: { default: "Admin - LUXE", template: "%s - LUXE Admin" } };
 export const dynamic = "force-dynamic";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {

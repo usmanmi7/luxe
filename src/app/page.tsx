@@ -30,11 +30,11 @@ export default async function HomePage() {
     <>
       {/* ===== PROMO BANNER ===== */}
       <div className="bg-[#0a0a0a] text-[#fafaf8] text-center text-sm py-2.5 luxe-mono">
-        <span>🎉 Up to <strong className="text-[#D1FE17]">20% off</strong> sale items this week — </span>
+        <span>🎉 Up to <strong className="text-[#D1FE17]">20% off</strong> sale items this week - </span>
         <Link href="/shop?cat=Sale" className="underline hover:text-[#D1FE17]">Shop the sale →</Link>
       </div>
 
-      {/* ===== HERO — exactly 90vh on desktop (1920x1080) ===== */}
+      {/* ===== HERO - exactly 90vh on desktop (1920x1080) ===== */}
       <section className="relative overflow-hidden h-[90vh] flex items-center">
         <div className="absolute inset-0 bg-gradient-to-br from-[#f3f1ea] via-[#fafaf8] to-[#D1FE17]/10" />
         <div className="luxe-wrap relative grid md:grid-cols-[1.2fr_1fr] gap-12 items-center w-full">
@@ -50,7 +50,7 @@ export default async function HomePage() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/shop" className="luxe-btn-lime">Shop now</Link>
-              <Link href="/shop?cat=Sale" className="luxe-btn-outline">Sale — up to 20% off</Link>
+              <Link href="/shop?cat=Sale" className="luxe-btn-outline">Sale - up to 20% off</Link>
             </div>
             <div className="mt-10 flex flex-wrap gap-x-6 gap-y-2 luxe-mono text-[11px] text-[#2b2b28]">
               <span>⭐ 4.8 avg rating</span>
@@ -120,7 +120,7 @@ export default async function HomePage() {
             <span className="luxe-tag luxe-tag-sale mb-4 inline-block">Sale</span>
             <h2 className="font-display text-4xl md:text-5xl font-medium mt-4">Up to 20% off this week</h2>
             <p className="mt-4 text-[#2b2b28] max-w-[40ch]">
-              Stocked up on our top formulas — now at our lowest prices of the year. Ends Sunday.
+              Stocked up on our top formulas - now at our lowest prices of the year. Ends Sunday.
             </p>
             <Link href="/shop?cat=Sale" className="luxe-btn-lime mt-6 inline-flex">Shop the sale</Link>
           </div>

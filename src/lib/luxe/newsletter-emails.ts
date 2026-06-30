@@ -1,5 +1,5 @@
 // ==========================================================================
-// LUXE — Newsletter email templates
+// LUXE - Newsletter email templates
 // All emails include: branded LUXE header, content, unsubscribe link,
 // physical mailing address (CAN-SPAM requirement)
 // ==========================================================================
@@ -83,7 +83,7 @@ export function renderWelcomeEmail(email: string): { subject: string; html: stri
       Thanks for joining us, ${email.split("@")[0]}. We'll only email you when we have something genuinely worth your time.
     </p>
   `);
-  return { subject: "Welcome to LUXE — here's your 15% off 🎉", html };
+  return { subject: "Welcome to LUXE - here's your 15% off 🎉", html };
 }
 
 // ----- New product launch email (sent to all confirmed subscribers) -------

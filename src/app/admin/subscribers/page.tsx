@@ -112,7 +112,7 @@ export default async function AdminSubscribersPage() {
                   <td className="px-4 py-3 luxe-mono text-[10px] text-[#2b2b28]">
                     {s.confirmedAt
                       ? s.confirmedAt.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
-                      : "—"}
+                      : "-"}
                   </td>
                 </tr>
               ))

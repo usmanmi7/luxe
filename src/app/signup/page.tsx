@@ -47,7 +47,7 @@ export default function SignupPage() {
         redirect: false,
       });
       if (!signInRes || signInRes.error) {
-        // Account created but auto-login failed — send to login page
+        // Account created but auto-login failed - send to login page
         router.push("/login?registered=1");
         return;
       }

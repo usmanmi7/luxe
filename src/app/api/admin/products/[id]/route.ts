@@ -71,7 +71,7 @@ export async function DELETE(_req: Request, { params }: { params: Params }) {
     const orderCount = await db.orderItem.count({ where: { productId: id } });
     if (orderCount > 0) {
       await db.product.update({ where: { id }, data: { active: false, stock: 0 } });
-      return NextResponse.json({ product: { id }, softDeleted: true, message: `Product has ${orderCount} order(s) — marked inactive instead of deleting` });
+      return NextResponse.json({ product: { id }, softDeleted: true, message: `Product has ${orderCount} order(s) - marked inactive instead of deleting` });
     }
 
     await db.product.delete({ where: { id } });

@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ==========================================================================
-   LUXE brand tokens — Beauty & Cosmetics
+   LUXE brand tokens - Beauty & Cosmetics
    Lime #D1FE17 (accent), Ink #0A0A0A (text/primary), Paper #FAFAF8 (bg)
    Display: Fraunces (editorial serif) · Body: Inter · Mono: Space Mono
    Fonts are loaded via next/font/google in src/app/layout.tsx
@@ -62,7 +62,7 @@
 }
 
 :root {
-  /* shadcn defaults — overridden by LUXE brand below */
+  /* shadcn defaults - overridden by LUXE brand below */
   --radius: 0.625rem;
   --background: #fafaf8;       /* paper */
   --foreground: #0a0a0a;       /* ink */
@@ -155,7 +155,7 @@
     padding-right: clamp(20px, 5vw, 64px);
   }
 
-  /* Eyebrow — small mono label with lime dot */
+  /* Eyebrow - small mono label with lime dot */
   .luxe-eyebrow {
     font-family: 'Space Mono', monospace;
     font-size: 12px;
@@ -182,7 +182,7 @@
     text-transform: uppercase;
   }
 
-  /* Primary button — black with lime sweep on hover */
+  /* Primary button - black with lime sweep on hover */
   .luxe-btn-primary {
     display: inline-flex;
     align-items: center;

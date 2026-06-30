@@ -127,7 +127,7 @@ export default async function ConfirmationPage({ searchParams }: { searchParams:
           <div className="border-t border-[#e4e1d6] mt-6 pt-4">
             <h3 className="luxe-mono text-[11px] text-[#2b2b28] mb-2">PAYMENT</h3>
             <p className="text-sm text-[#E05C2C]">
-              ⚠ Online card payment is not yet active. Your order has been saved — our team will contact you to arrange payment, or you can switch to COD / bank transfer by placing a new order.
+              ⚠ Online card payment is not yet active. Your order has been saved - our team will contact you to arrange payment, or you can switch to COD / bank transfer by placing a new order.
             </p>
           </div>
         )}

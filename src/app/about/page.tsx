@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "The LUXE story — clean, high-performance beauty in bold color.",
+  description: "The LUXE story - clean, high-performance beauty in bold color.",
 };
 
 const TEAM = [
@@ -13,7 +13,7 @@ const TEAM = [
 ];
 
 const VALUES = [
-  { icon: "🧪", title: "Science-first formulas", desc: "Every product starts in the lab. We use clinically-proven actives at effective concentrations — never filler, never greenwashing." },
+  { icon: "🧪", title: "Science-first formulas", desc: "Every product starts in the lab. We use clinically-proven actives at effective concentrations - never filler, never greenwashing." },
   { icon: "🐰", title: "Cruelty-free, always", desc: "Leaping Bunny certified. We never test on animals and never work with suppliers who do." },
   { icon: "♻️", title: "Refillable, less waste", desc: "Our packaging is designed to be refilled. Buy the bottle once, refill forever. Less plastic, same ritual." },
   { icon: "🌍", title: "Made in Sri Lanka", desc: "Formulated and manufactured locally. Supporting local jobs, local suppliers, local talent." },
@@ -29,7 +29,7 @@ export default function AboutPage() {
             Beauty, <em className="italic text-[#0a0a0a]/70">unfiltered.</em>
           </h1>
           <p className="mt-6 text-lg text-[#2b2b28] leading-relaxed">
-            LUXE was born in 2024 in Colombo, out of frustration with a beauty industry that prioritized marketing over formulation. We make clean, high-performance skincare and makeup — bold color, real actives, zero filler — priced honestly and made for real skin.
+            LUXE was born in 2024 in Colombo, out of frustration with a beauty industry that prioritized marketing over formulation. We make clean, high-performance skincare and makeup - bold color, real actives, zero filler - priced honestly and made for real skin.
           </p>
         </div>
       </section>

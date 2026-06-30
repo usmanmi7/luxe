@@ -127,7 +127,7 @@ export async function POST(req: Request) {
 }
 
 export async function GET() {
-  // Public list of all orders — FOR ADMIN ONLY in production.
+  // Public list of all orders - FOR ADMIN ONLY in production.
   // Phase 3 will add auth check here. For now, returns empty for safety.
   return NextResponse.json({ orders: [], note: "Admin auth required" });
 }

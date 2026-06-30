@@ -10,7 +10,7 @@ async function requireAdmin() {
   return session;
 }
 
-// POST — admin manually adds a subscriber (auto-confirmed, no email sent)
+// POST - admin manually adds a subscriber (auto-confirmed, no email sent)
 export async function POST(req: Request) {
   const session = await requireAdmin();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 403 });

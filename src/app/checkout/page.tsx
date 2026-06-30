@@ -187,7 +187,7 @@ export default function CheckoutPage() {
                 />
                 <div className="flex-1">
                   <div className="font-display font-medium">💳 Card payment <span className="luxe-tag luxe-tag-new ml-2">Phase 2</span></div>
-                  <p className="text-sm text-[#2b2b28] mt-1">PayHere-hosted checkout — Visa, Master, Amex, eZ Cash, mCash. <strong>Not yet active</strong> — order will be saved as pending.</p>
+                  <p className="text-sm text-[#2b2b28] mt-1">PayHere-hosted checkout - Visa, Master, Amex, eZ Cash, mCash. <strong>Not yet active</strong> - order will be saved as pending.</p>
                 </div>
               </label>
 
@@ -230,7 +230,7 @@ export default function CheckoutPage() {
               disabled={submitting}
               className="luxe-btn-primary disabled:opacity-50"
             >
-              <span>{submitting ? "Placing order…" : `Place order — $${total.toFixed(2)}`}</span>
+              <span>{submitting ? "Placing order…" : `Place order - $${total.toFixed(2)}`}</span>
             </button>
           </div>
         </div>

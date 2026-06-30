@@ -12,14 +12,14 @@ function ConfirmContent() {
     success: {
       icon: "✓",
       title: "You're confirmed!",
-      message: "Thanks for joining the LUXE insider list. Check your inbox — we just sent you a welcome email with your 15% off code.",
+      message: "Thanks for joining the LUXE insider list. Check your inbox - we just sent you a welcome email with your 15% off code.",
       cta: "Start shopping",
       ctaHref: "/shop",
     },
     already: {
       icon: "✓",
       title: "Already confirmed",
-      message: "You're already on the list — no action needed. We'll email you about new products and sales.",
+      message: "You're already on the list - no action needed. We'll email you about new products and sales.",
       cta: "Browse products",
       ctaHref: "/shop",
     },

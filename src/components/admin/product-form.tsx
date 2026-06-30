@@ -145,7 +145,7 @@ export function ProductForm({ initial, productId }: { initial?: ProductFormData;
         </Field>
       </div>
 
-      {/* Newsletter notification — only on new products, not edit */}
+      {/* Newsletter notification - only on new products, not edit */}
       {!isEdit && (
         <div className="bg-[#D1FE17]/10 border border-[#D1FE17]/30 rounded-md p-4">
           <label className="flex items-start gap-3 cursor-pointer">

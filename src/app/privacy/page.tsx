@@ -25,7 +25,7 @@ export default function PrivacyPage() {
           <h2>2. What we collect</h2>
           <p><strong>Information you provide:</strong></p>
           <ul className="list-disc pl-6 space-y-1">
-            <li>Account details: name, email address, password (stored as a bcrypt hash — never in plain text).</li>
+            <li>Account details: name, email address, password (stored as a bcrypt hash - never in plain text).</li>
             <li>Order information: shipping address, phone number, email used at checkout.</li>
             <li>Saved addresses you add to your account for faster checkout.</li>
             <li>Messages you send via our contact form.</li>
@@ -45,7 +45,7 @@ export default function PrivacyPage() {
             <li>To process and fulfill your orders, including shipping and returns.</li>
             <li>To communicate with you about your orders (confirmations, shipping updates, customer service).</li>
             <li>To create and manage your account.</li>
-            <li>To send marketing emails (only if you've subscribed — you can unsubscribe anytime).</li>
+            <li>To send marketing emails (only if you've subscribed - you can unsubscribe anytime).</li>
             <li>To improve our products, website, and customer experience.</li>
             <li>To detect and prevent fraud, abuse, and security incidents.</li>
             <li>To comply with legal obligations.</li>

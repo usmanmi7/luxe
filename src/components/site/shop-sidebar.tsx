@@ -148,7 +148,7 @@ export function ShopSidebar({
               />
             </label>
           </div>
-          <span className="text-[#2b2b28] mt-4">—</span>
+          <span className="text-[#2b2b28] mt-4">-</span>
           <div className="flex-1">
             <label className="block">
               <span className="luxe-mono text-[9px] text-[#2b2b28]/60">MAX</span>

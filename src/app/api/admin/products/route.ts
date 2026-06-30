@@ -61,7 +61,7 @@ async function notifySubscribersAboutNewProduct(product: {
   name: string; desc: string; img: string; price: number; slug: string; tag: string | null;
 }) {
   if (!resend) {
-    console.log("[newsletter] RESEND_API_KEY not set — skipping product launch email");
+    console.log("[newsletter] RESEND_API_KEY not set - skipping product launch email");
     return { sent: 0, skipped: true };
   }
 
@@ -71,7 +71,7 @@ async function notifySubscribersAboutNewProduct(product: {
   });
 
   if (subscribers.length === 0) {
-    console.log("[newsletter] No confirmed subscribers — skipping product launch email");
+    console.log("[newsletter] No confirmed subscribers - skipping product launch email");
     return { sent: 0, reason: "no_subscribers" };
   }
 

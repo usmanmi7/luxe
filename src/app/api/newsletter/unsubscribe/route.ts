@@ -20,7 +20,7 @@ export async function GET(req: Request) {
       return NextResponse.redirect(new URL("/newsletter/unsubscribe?status=invalid", req.url));
     }
 
-    // Mark as unsubscribed immediately (no waiting period — legal requirement)
+    // Mark as unsubscribed immediately (no waiting period - legal requirement)
     await db.subscriber.update({
       where: { id: subscriber.id },
       data: { status: "unsubscribed", unsubscribedAt: new Date() },

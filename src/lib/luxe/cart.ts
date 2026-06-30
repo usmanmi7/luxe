@@ -1,7 +1,7 @@
 "use client";
 
 // ==========================================================================
-// LUXE — client-side cart helpers
+// LUXE - client-side cart helpers
 // localStorage-backed for now; will swap to server-side DB cart when auth lands
 // ==========================================================================
 

@@ -130,7 +130,7 @@ export async function sendOrderConfirmationEmail(data: OrderEmailData): Promise<
     const { error } = await resend.emails.send({
       from: `LUXE <${FROM_EMAIL}>`,
       to: data.email,
-      subject: `Order confirmed — ${data.orderNumber}`,
+      subject: `Order confirmed - ${data.orderNumber}`,
       html,
     });
     if (error) {

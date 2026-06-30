@@ -14,7 +14,7 @@ export default function ReturnsPage() {
       <div className="prose-luxe space-y-8 text-[#2b2b28] leading-relaxed">
         <section>
           <h2>Our promise</h2>
-          <p>If you're not happy with your LUXE purchase, we want to make it right. We accept returns within 30 days of delivery, no questions asked. If you've had an allergic reaction or your product is defective, contact us within 14 days for a full refund — even if the product has been used.</p>
+          <p>If you're not happy with your LUXE purchase, we want to make it right. We accept returns within 30 days of delivery, no questions asked. If you've had an allergic reaction or your product is defective, contact us within 14 days for a full refund - even if the product has been used.</p>
         </section>
 
         <section>
@@ -74,7 +74,7 @@ export default function ReturnsPage() {
 
         <section>
           <h2>Damaged on arrival</h2>
-          <p>If your package arrives damaged, contact us within 48 hours with photos of the product, packaging, and shipping label. We'll send a replacement or issue a full refund — your choice.</p>
+          <p>If your package arrives damaged, contact us within 48 hours with photos of the product, packaging, and shipping label. We'll send a replacement or issue a full refund - your choice.</p>
         </section>
 
         <section>
@@ -84,7 +84,7 @@ export default function ReturnsPage() {
 
         <section>
           <h2>Order cancellations</h2>
-          <p>You can cancel an order for free within 1 hour of placing it (as long as it hasn't shipped). After that, the order is in fulfillment and we can't cancel — you'll need to return it once received.</p>
+          <p>You can cancel an order for free within 1 hour of placing it (as long as it hasn't shipped). After that, the order is in fulfillment and we can't cancel - you'll need to return it once received.</p>
         </section>
 
         <section>

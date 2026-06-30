@@ -6,9 +6,9 @@ import { toast } from "@/hooks/use-toast";
 const FAQS = [
   { q: "How long does shipping take?", a: "Within Sri Lanka: 2-4 business days. International: 7-14 business days. Free shipping on orders over $60." },
   { q: "What's your return policy?", a: "30-day no-questions-asked returns on unopened products. If you've had a reaction, contact us within 14 days for a full refund." },
-  { q: "Are your products cruelty-free?", a: "Yes — Leaping Bunny certified. We never test on animals and never work with suppliers who do." },
+  { q: "Are your products cruelty-free?", a: "Yes - Leaping Bunny certified. We never test on animals and never work with suppliers who do." },
   { q: "Where are you based?", a: "Colombo, Sri Lanka. All products are formulated and manufactured locally." },
-  { q: "Do you ship internationally?", a: "Yes — we ship worldwide. International shipping is calculated at checkout based on destination and weight." },
+  { q: "Do you ship internationally?", a: "Yes - we ship worldwide. International shipping is calculated at checkout based on destination and weight." },
 ];
 
 export default function ContactPage() {
@@ -24,7 +24,7 @@ export default function ContactPage() {
       await new Promise((r) => setTimeout(r, 800));
       toast({
         title: "Message sent ✓",
-        description: `Thanks ${data.name} — we'll reply to ${data.email} within 24h.`,
+        description: `Thanks ${data.name} - we'll reply to ${data.email} within 24h.`,
       });
       (e.target as HTMLFormElement).reset();
     } catch {

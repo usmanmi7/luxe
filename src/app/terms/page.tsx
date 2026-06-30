@@ -68,7 +68,7 @@ export default function TermsPage() {
 
         <section>
           <h2>9. Intellectual property</h2>
-          <p>All content on the Site — including text, graphics, logos, images, and software — is owned by LUXE Cosmetics or licensed to us. You may not copy, modify, distribute, or republish any content without our written permission.</p>
+          <p>All content on the Site - including text, graphics, logos, images, and software - is owned by LUXE Cosmetics or licensed to us. You may not copy, modify, distribute, or republish any content without our written permission.</p>
         </section>
 
         <section>

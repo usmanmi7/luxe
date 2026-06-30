@@ -6,7 +6,7 @@ import { renderConfirmationEmail } from "@/lib/luxe/newsletter-emails";
 export const dynamic = "force-dynamic";
 
 // POST /api/newsletter/subscribe
-// Public endpoint — called from footer newsletter form
+// Public endpoint - called from footer newsletter form
 // Creates a "pending" subscriber + sends confirmation email (double opt-in)
 export async function POST(req: Request) {
   try {
@@ -52,7 +52,7 @@ export async function POST(req: Request) {
           message: "We sent you a new confirmation email. Check your inbox (and spam folder).",
         });
       }
-      // Already pending — resend confirmation
+      // Already pending - resend confirmation
       if (resend) {
         const { subject, html } = renderConfirmationEmail(existing.confirmToken);
         await resend.emails.send({
@@ -67,7 +67,7 @@ export async function POST(req: Request) {
       });
     }
 
-    // New subscriber — create as pending
+    // New subscriber - create as pending
     const subscriber = await db.subscriber.create({
       data: { email: normalizedEmail, status: "pending", source },
     });
@@ -82,7 +82,7 @@ export async function POST(req: Request) {
         html,
       });
     } else {
-      console.log("[newsletter] RESEND_API_KEY not set — confirmation email not sent");
+      console.log("[newsletter] RESEND_API_KEY not set - confirmation email not sent");
       console.log("[newsletter] Confirm URL would be: /api/newsletter/confirm?token=" + subscriber.confirmToken);
     }
 

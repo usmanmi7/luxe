@@ -12,8 +12,8 @@ export const dynamic = "force-dynamic";
 
 const STATUS_LABELS: Record<string, { label: string; color: string }> = {
   pending: { label: "Awaiting payment", color: "bg-yellow-100 text-yellow-800" },
-  pending_cod: { label: "COD — Awaiting fulfillment", color: "bg-blue-100 text-blue-800" },
-  pending_bank: { label: "Bank transfer — pending", color: "bg-blue-100 text-blue-800" },
+  pending_cod: { label: "COD - Awaiting fulfillment", color: "bg-blue-100 text-blue-800" },
+  pending_bank: { label: "Bank transfer - pending", color: "bg-blue-100 text-blue-800" },
   paid: { label: "Paid", color: "bg-green-100 text-green-800" },
   shipped: { label: "Shipped", color: "bg-purple-100 text-purple-800" },
   delivered: { label: "Delivered", color: "bg-green-200 text-green-900" },

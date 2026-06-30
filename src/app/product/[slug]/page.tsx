@@ -16,14 +16,14 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     title: product.name,
     description: product.desc,
     openGraph: {
-      title: `${product.name} — LUXE`,
+      title: `${product.name} - LUXE`,
       description: product.desc,
       images: [product.img],
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: `${product.name} — LUXE`,
+      title: `${product.name} - LUXE`,
       description: product.desc,
       images: [product.img],
     },

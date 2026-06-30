@@ -31,8 +31,8 @@ const fraunces = Fraunces({
 
 export const metadata: Metadata = {
   title: {
-    default: "LUXE — Beauty, Unfiltered",
-    template: "%s — LUXE",
+    default: "LUXE - Beauty, Unfiltered",
+    template: "%s - LUXE",
   },
   description:
     "Clean, high-performance beauty in bold color. Shop skincare and makeup made for real skin.",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     apple: "/icon.svg",
   },
   openGraph: {
-    title: "LUXE — Beauty, Unfiltered",
+    title: "LUXE - Beauty, Unfiltered",
     description:
       "Clean, high-performance beauty in bold color. Shop skincare and makeup made for real skin.",
     siteName: "LUXE",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "LUXE — Beauty, Unfiltered",
+    title: "LUXE - Beauty, Unfiltered",
     description:
       "Clean, high-performance beauty in bold color. Shop skincare and makeup made for real skin.",
   },
