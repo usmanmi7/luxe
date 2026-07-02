@@ -35,8 +35,9 @@ export default function ContactPage() {
         description: `Thanks ${data.name} - we'll reply to ${data.email} within 24h.`,
       });
       (e.target as HTMLFormElement).reset();
-    } catch {
-      toast({ title: "Failed to send", variant: "destructive" });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Failed to send message";
+      toast({ title: "Failed to send", description: msg, variant: "destructive" });
     } finally {
       setSubmitting(false);
     }

@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     if (!name || name.trim().length < 2) errors.push("Name is required (min 2 characters)");
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.push("Valid email is required");
     if (!subject || subject.trim().length < 3) errors.push("Subject is required (min 3 characters)");
-    if (!message || message.trim().length < 10) errors.push("Message is required (min 10 characters)");
+    if (!message || message.trim().length < 5) errors.push("Message is required (min 5 characters)");
 
     if (errors.length > 0) {
       return NextResponse.json({ error: "Validation failed", details: errors }, { status: 400 });
