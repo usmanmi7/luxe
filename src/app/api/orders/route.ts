@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { auth } from "@/lib/auth/auth";
 import { sendOrderConfirmationEmail } from "@/lib/luxe/email";
+import { fireEvent } from "@/lib/luxe/n8n-webhook";
 
 export const dynamic = "force-dynamic";
 
@@ -115,6 +116,33 @@ export async function POST(req: Request) {
       paymentMethod: order.paymentMethod || "card",
       status: order.status,
     }).catch((err) => console.error("[email] Background send failed:", err));
+
+    // Fire "new_order" event to n8n (fire-and-forget)
+    fireEvent("new_order", {
+      orderId: order.id,
+      orderNumber: order.orderNumber,
+      email: order.email,
+      customerName: `${order.shipFirstName} ${order.shipLastName}`,
+      total: order.total,
+      paymentMethod: order.paymentMethod,
+      status: order.status,
+      phone: order.shipPhone,
+      items: order.items.map((i) => ({
+        name: i.name,
+        qty: i.qty,
+        price: i.price,
+        variant: i.variant,
+      })),
+      shippingAddress: {
+        firstName: order.shipFirstName,
+        lastName: order.shipLastName,
+        address: order.shipAddress,
+        city: order.shipCity,
+        postal: order.shipPostal,
+        country: order.shipCountry,
+        phone: order.shipPhone,
+      },
+    }).catch((err) => console.error("[n8n] Failed to fire new_order event:", err));
 
     return NextResponse.json({ order }, { status: 201 });
   } catch (err) {

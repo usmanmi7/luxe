@@ -20,8 +20,16 @@ export default function ContactPage() {
     const data = Object.fromEntries(form.entries());
     setSubmitting(true);
     try {
-      // Phase 2: wire to Resend email
-      await new Promise((r) => setTimeout(r, 800));
+      // Fire contact form to n8n webhook
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || "Failed to send message");
+      }
       toast({
         title: "Message sent ✓",
         description: `Thanks ${data.name} - we'll reply to ${data.email} within 24h.`,

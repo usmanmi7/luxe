@@ -1,0 +1,138 @@
+{
+  "name": "LUXE - New Order Admin Notification",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "new-order",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook (New Order)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "luxe-new-order"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build a formatted order summary from the webhook payload\nconst payload = $input.first().json.body;\nconst data = payload.data;\n\nconst itemLines = (data.items || [])\n  .map(i => `  - ${i.name} (x${i.qty}) $${(i.price * i.qty).toFixed(2)}${i.variant ? ' [' + i.variant + ']' : ''}`)\n  .join('\\n');\n\nconst statusLabel = (data.status || 'pending').replace(/_/g, ' ').toUpperCase();\nconst payMethod = (data.paymentMethod || 'card').toUpperCase();\n\nconst text = `\n🛍️ *NEW ORDER* #${data.orderNumber}\n━━━━━━━━━━━━━━━━━━━━\n\n👤 *Customer:* ${data.customerName}\n📧 *Email:* ${data.email}\n${data.phone ? '📱 *Phone:* ' + data.phone + '\\n' : ''}\n💰 *Total:* $${data.total.toFixed(2)}\n💳 *Payment:* ${payMethod}\n📋 *Status:* ${statusLabel}\n\n📦 *Items:*\n${itemLines}\n\n📍 *Shipping:*\n  ${data.shippingAddress.firstName} ${data.shippingAddress.lastName}\n  ${data.shippingAddress.address}\n  ${data.shippingAddress.city}, ${data.shippingAddress.postal}\n  ${data.shippingAddress.country}\n\n🔗 *Admin:* https://luxe-ruby-delta.vercel.app/admin/orders/${data.orderId}\n⏰ *Time:* ${payload.timestamp}\n`;\n\nreturn [{ json: { ...data, formattedText: text, orderNumber: data.orderNumber } }];"
+      },
+      "id": "format-message",
+      "name": "Format Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [470, 300]
+    },
+    {
+      "parameters": {
+        "account": "YOUR_DISCORD_WEBHOOK_URL",
+        "text": "={{ $json.formattedText }}",
+        "otherOptions": {}
+      },
+      "id": "discord-notify",
+      "name": "Discord Notification",
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [690, 180],
+      "typeOptions": { "allowExternalAuth": true },
+      "notes": "OPTIONAL: Add your Discord webhook URL. Delete if not using Discord."
+    },
+    {
+      "parameters": {
+        "fromEmail": "orders@luxe.local",
+        "toEmail": "admin@luxe.local",
+        "subject": "=🛍️ New Order #{{ $json.orderNumber }} - {{ $json.customerName }} (${{ $json.total.toFixed(2) }})",
+        "html": "<div style=\"font-family: -apple-system, sans-serif; max-width: 560px; margin: 0 auto; padding: 20px;\">\n  <div style=\"font-size: 24px; font-weight: 600; margin-bottom: 20px;\">LUXE<span style=\"color: #b9e30f;\">.</span> Admin</div>\n  <h2 style=\"color: #0a0a0a;\">New Order #{{ $json.orderNumber }}</h2>\n  <p><strong>Customer:</strong> {{ $json.customerName }} ({{ $json.email }})</p>\n  <p><strong>Total:</strong> ${{ $json.total.toFixed(2) }}</p>\n  <p><strong>Payment:</strong> {{ $json.paymentMethod }}</p>\n  <p><strong>Status:</strong> {{ $json.status.replace(/_/g, ' ') }}</p>\n  <hr style=\"border: none; border-top: 1px solid #eee; margin: 16px 0;\">\n  <h3>Items</h3>\n  <table style=\"width: 100%; border-collapse: collapse;\">\n    <tr style=\"border-bottom: 2px solid #0a0a0a;\"><th style=\"text-align: left; padding: 8px 0;\">Item</th><th style=\"text-align: center;\">Qty</th><th style=\"text-align: right;\">Price</th></tr>\n    {{ $json.items.map(i => `<tr style=\"border-bottom: 1px solid #eee;\"><td style=\"padding: 8px 0;\">${i.name}${i.variant ? ' · ' + i.variant : ''}</td><td style=\"text-align: center;\">${i.qty}</td><td style=\"text-align: right; font-family: monospace;\">$${(i.price * i.qty).toFixed(2)}</td></tr>`).join('') }}\n    <tr><td colspan=\"2\" style=\"text-align: right; padding-top: 16px; font-weight: bold;\">Total</td><td style=\"text-align: right; font-family: monospace; font-weight: bold; font-size: 18px;\">${{ $json.total.toFixed(2) }}</td></tr>\n  </table>\n  <hr style=\"border: none; border-top: 1px solid #eee; margin: 16px 0;\">\n  <p><strong>Shipping to:</strong><br>{{ $json.shippingAddress.firstName }} {{ $json.shippingAddress.lastName }}<br>{{ $json.shippingAddress.address }}<br>{{ $json.shippingAddress.city }}, {{ $json.shippingAddress.postal }}<br>{{ $json.shippingAddress.country }}</p>\n  <a href=\"https://luxe-ruby-delta.vercel.app/admin/orders/{{ $json.orderId }}\" style=\"display: inline-block; background: #0a0a0a; color: #fafaf8; padding: 12px 24px; border-radius: 100px; text-decoration: none; margin-top: 16px;\">View in Admin Panel →</a>\n</div>",
+        "options": {}
+      },
+      "id": "email-admin",
+      "name": "Email to Admin",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [690, 420],
+      "notes": "Configure your SMTP credentials in n8n. Change 'admin@luxe.local' to YOUR email.",
+      "credentials": {
+        "smtp": {
+          "id": "YOUR_SMTP_CREDENTIAL_ID",
+          "name": "Your SMTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Respond to the webhook immediately\nreturn [{ json: { success: true, message: 'New order notification processed' } }];"
+      },
+      "id": "respond",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [910, 300]
+    }
+  ],
+  "connections": {
+    "Webhook (New Order)": {
+      "main": [
+        [
+          {
+            "node": "Format Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Message": {
+      "main": [
+        [
+          {
+            "node": "Discord Notification",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Email to Admin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord Notification": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email to Admin": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "LUXE"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2026-07-02T00:00:00.000Z",
+  "versionId": "1"
+}

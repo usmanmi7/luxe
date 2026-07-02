@@ -1,0 +1,231 @@
+{
+  "name": "LUXE - Order Status Change → Customer Email",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "status-change",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook (Status Change)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "luxe-status-change"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.body.data.newStatus }}",
+              "rightValue": "shipped",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "check-shipped",
+      "name": "Is Shipped?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [470, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.body.data.newStatus }}",
+              "rightValue": "delivered",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "check-delivered",
+      "name": "Is Delivered?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [470, 520]
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json.body.data;\nconst statusLabel = data.newStatus.replace(/_/g, ' ').toUpperCase();\nconst itemLines = (data.items || [])\n  .map(i => `<tr style=\"border-bottom: 1px solid #e4e1d6;\"><td style=\"padding: 8px 0;\">${i.name}${i.variant ? ' · ' + i.variant : ''}</td><td style=\"text-align: center;\">${i.qty}</td><td style=\"text-align: right; font-family: monospace;\">$${(i.price * i.qty).toFixed(2)}</td></tr>`)\n  .join('');\n\nconst html = `<!DOCTYPE html>\n<html><body style=\"margin:0;padding:0;background:#fafaf8;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:#0a0a0a;\">\n  <div style=\"max-width:560px;margin:0 auto;padding:32px 20px;\">\n    <div style=\"font-family:'Fraunces',Georgia,serif;font-size:24px;font-weight:600;margin-bottom:24px;\">LUXE<span style=\"color:#b9e30f;\">.</span></div>\n    \n    <div style=\"background:#0a0a0a;color:#fafaf8;padding:16px 20px;border-radius:8px;margin-bottom:24px;\">\n      <div style=\"font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;opacity:0.7;\">ORDER UPDATE</div>\n      <div style=\"font-family:'Space Mono',monospace;font-size:20px;font-weight:700;margin-top:4px;\">YOUR ORDER HAS SHIPPED</div>\n    </div>\n    \n    <h1 style=\"font-family:'Fraunces',Georgia,serif;font-size:28px;font-weight:500;margin:0 0 12px;\">Great news, ${data.customerName.split(' ')[0]}!</h1>\n    <p style=\"margin:0 0 24px;color:#2b2b28;font-size:15px;line-height:1.6;\">\n      Your order <strong>#${data.orderNumber}</strong> has been shipped and is on its way to you. You should receive it within 2-4 business days.\n    </p>\n\n    <div style=\"background:#f3f1ea;padding:20px;border-radius:8px;margin-bottom:24px;\">\n      <div style=\"font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#2b2b28;margin-bottom:6px;\">ORDER NUMBER</div>\n      <div style=\"font-family:monospace;font-weight:bold;font-size:16px;\">${data.orderNumber}</div>\n      <div style=\"margin-top:12px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#2b2b28;\">SHIPPING TO</div>\n      <div style=\"font-size:14px;margin-top:2px;\">${data.shippingAddress.firstName} ${data.shippingAddress.lastName}<br>${data.shippingAddress.address}<br>${data.shippingAddress.city}, ${data.shippingAddress.postal}<br>${data.shippingAddress.country}</div>\n    </div>\n\n    <h2 style=\"font-family:'Fraunces',Georgia,serif;font-size:20px;font-weight:500;margin:0 0 12px;\">Your items</h2>\n    <table style=\"width:100%;border-collapse:collapse;font-size:14px;margin-bottom:24px;\">\n      <thead><tr style=\"font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#2b2b28;\"><th style=\"text-align:left;padding:8px 0;border-bottom:2px solid #0a0a0a;\">Item</th><th style=\"text-align:center;padding:8px 0;border-bottom:2px solid #0a0a0a;\">Qty</th><th style=\"text-align:right;padding:8px 0;border-bottom:2px solid #0a0a0a;\">Price</th></tr></thead>\n      <tbody>${itemLines}</tbody>\n    </table>\n\n    <p style=\"margin:0 0 24px;color:#2b2b28;font-size:14px;line-height:1.6;\">\n      If you have any questions about your order, just reply to this email or contact us at <a href=\"mailto:hello@luxe.local\" style=\"color:#0a0a0a;\">hello@luxe.local</a>.\n    </p>\n\n    <a href=\"https://luxe-ruby-delta.vercel.app/shop\" style=\"display:inline-block;background:#D1FE17;color:#0a0a0a;font-family:'Space Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.04em;padding:16px 28px;border-radius:100px;text-decoration:none;font-weight:700;\">Shop again</a>\n\n    <hr style=\"border:none;border-top:1px solid #e4e1d6;margin:32px 0;\">\n    <p style=\"font-size:12px;color:#2b2b28;margin:0;\">LUXE Cosmetics<br>42 Galle Face Road, Colombo 03, Sri Lanka</p>\n  </div>\n</body></html>`;\n\nreturn [{ json: { ...data, emailHtml: html, subject: `Your order #${data.orderNumber} has shipped!` } }];"
+      },
+      "id": "build-shipped-email",
+      "name": "Build Shipped Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [690, 180]
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json.body.data;\nconst itemLines = (data.items || [])\n  .map(i => `<tr style=\"border-bottom: 1px solid #e4e1d6;\"><td style=\"padding: 8px 0;\">${i.name}${i.variant ? ' · ' + i.variant : ''}</td><td style=\"text-align: center;\">${i.qty}</td><td style=\"text-align: right; font-family: monospace;\">$${(i.price * i.qty).toFixed(2)}</td></tr>`)\n  .join('');\n\nconst html = `<!DOCTYPE html>\n<html><body style=\"margin:0;padding:0;background:#fafaf8;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:#0a0a0a;\">\n  <div style=\"max-width:560px;margin:0 auto;padding:32px 20px;\">\n    <div style=\"font-family:'Fraunces',Georgia,serif;font-size:24px;font-weight:600;margin-bottom:24px;\">LUXE<span style=\"color:#b9e30f;\">.</span></div>\n    \n    <div style=\"background:#e8f5e9;color:#1b5e20;padding:16px 20px;border-radius:8px;margin-bottom:24px;\">\n      <div style=\"font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;opacity:0.8;\">ORDER UPDATE</div>\n      <div style=\"font-family:'Space Mono',monospace;font-size:20px;font-weight:700;margin-top:4px;\">DELIVERED</div>\n    </div>\n    \n    <h1 style=\"font-family:'Fraunces',Georgia,serif;font-size:28px;font-weight:500;margin:0 0 12px;\">It's here, ${data.customerName.split(' ')[0]}!</h1>\n    <p style=\"margin:0 0 24px;color:#2b2b28;font-size:15px;line-height:1.6;\">\n      Your order <strong>#${data.orderNumber}</strong> has been delivered. We hope you love your new products!\n    </p>\n\n    <div style=\"background:#f3f1ea;padding:20px;border-radius:8px;margin-bottom:24px;\">\n      <div style=\"font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#2b2b28;margin-bottom:6px;\">ORDER NUMBER</div>\n      <div style=\"font-family:monospace;font-weight:bold;font-size:16px;\">${data.orderNumber}</div>\n    </div>\n\n    <h2 style=\"font-family:'Fraunces',Georgia,serif;font-size:20px;font-weight:500;margin:0 0 12px;\">Your items</h2>\n    <table style=\"width:100%;border-collapse:collapse;font-size:14px;margin-bottom:24px;\">\n      <thead><tr style=\"font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#2b2b28;\"><th style=\"text-align:left;padding:8px 0;border-bottom:2px solid #0a0a0a;\">Item</th><th style=\"text-align:center;padding:8px 0;border-bottom:2px solid #0a0a0a;\">Qty</th><th style=\"text-align:right;padding:8px 0;border-bottom:2px solid #0a0a0a;\">Price</th></tr></thead>\n      <tbody>${itemLines}</tbody>\n    </table>\n\n    <p style=\"margin:0 0 16px;color:#2b2b28;font-size:15px;line-height:1.6;\">\n      How are your products working out? We'd love to hear your feedback. Leave a review on our website and help other beauty lovers discover their next favourite product.\n    </p>\n    <a href=\"https://luxe-ruby-delta.vercel.app/shop\" style=\"display:inline-block;background:#D1FE17;color:#0a0a0a;font-family:'Space Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.04em;padding:16px 28px;border-radius:100px;text-decoration:none;font-weight:700;\">Leave a Review / Shop Again</a>\n\n    <hr style=\"border:none;border-top:1px solid #e4e1d6;margin:32px 0;\">\n    <p style=\"font-size:12px;color:#2b2b28;margin:0;\">LUXE Cosmetics<br>42 Galle Face Road, Colombo 03, Sri Lanka</p>\n  </div>\n</body></html>`;\n\nreturn [{ json: { ...data, emailHtml: html, subject: `Your order #${data.orderNumber} has been delivered!` } }];"
+      },
+      "id": "build-delivered-email",
+      "name": "Build Delivered Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [690, 480]
+    },
+    {
+      "parameters": {
+        "fromEmail": "orders@luxe.local",
+        "toEmail": "={{ $json.email }}",
+        "subject": "={{ $json.subject }}",
+        "html": "={{ $json.emailHtml }}",
+        "options": {}
+      },
+      "id": "send-shipped-email",
+      "name": "Send Shipped Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [910, 180],
+      "credentials": {
+        "smtp": {
+          "id": "YOUR_SMTP_CREDENTIAL_ID",
+          "name": "Your SMTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "orders@luxe.local",
+        "toEmail": "={{ $json.email }}",
+        "subject": "={{ $json.subject }}",
+        "html": "={{ $json.emailHtml }}",
+        "options": {}
+      },
+      "id": "send-delivered-email",
+      "name": "Send Delivered Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [910, 480],
+      "credentials": {
+        "smtp": {
+          "id": "YOUR_SMTP_CREDENTIAL_ID",
+          "name": "Your SMTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Silently handle other status changes (cancelled, refunded, etc.)\n// You can add more branches here for those statuses\nconst data = $input.first().json.body.data;\nconsole.log(`Status changed to ${data.newStatus} for order ${data.orderNumber} — no email action configured`);\nreturn [{ json: { skipped: true, status: data.newStatus } }];"
+      },
+      "id": "no-action",
+      "name": "No Action (Other Status)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [690, 680]
+    }
+  ],
+  "connections": {
+    "Webhook (Status Change)": {
+      "main": [
+        [
+          {
+            "node": "Is Shipped?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Shipped?": {
+      "main": [
+        [
+          {
+            "node": "Build Shipped Email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is Delivered?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Delivered?": {
+      "main": [
+        [
+          {
+            "node": "Build Delivered Email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Action (Other Status)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Shipped Email": {
+      "main": [
+        [
+          {
+            "node": "Send Shipped Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Delivered Email": {
+      "main": [
+        [
+          {
+            "node": "Send Delivered Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "LUXE"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2026-07-02T00:00:00.000Z",
+  "versionId": "1"
+}
