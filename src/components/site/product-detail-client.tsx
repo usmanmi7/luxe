@@ -191,14 +191,17 @@ export function ProductDetailClient({
         )}
 
         {/* Stock indicator */}
-        {product.stock <= 10 && product.stock > 0 && (
-          <div className="mt-5 luxe-mono text-[#E05C2C]">
-            ⚠ Only {product.stock} left in stock
-          </div>
-        )}
-        {product.stock === 0 && (
-          <div className="mt-5 luxe-mono text-[#E05C2C]">⚠ Out of stock</div>
-        )}
+        <div className="mt-5 luxe-mono text-sm">
+          {product.stock === 0 ? (
+            <span className="text-[#E05C2C] font-medium">Out of stock</span>
+          ) : product.stock <= 5 ? (
+            <span className="text-[#E05C2C] font-medium">Only {product.stock} left in stock</span>
+          ) : product.stock <= 10 ? (
+            <span className="text-[#D97706]">Low stock: {product.stock} available</span>
+          ) : (
+            <span className="text-[#2b2b28]/70">In stock: {product.stock} available</span>
+          )}
+        </div>
 
         {/* Qty + Add to bag */}
         <div className="mt-7 flex items-center gap-3">
